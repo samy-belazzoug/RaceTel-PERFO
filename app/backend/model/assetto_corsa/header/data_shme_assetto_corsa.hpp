@@ -1,5 +1,5 @@
 // Data shared memory assetto corsa
-// This document is the representation of Assetto Corsa's data in C++ language
+// This file is the representation of Assetto Corsa's data in C++ language
 
 // The following members are initialized when the instance starts and never changes until the instance is closed
 struct SPageFileStatic {
