@@ -46,3 +46,65 @@ struct SPageFileStatic {
     int PitWindowStart; // Pit window is open on Lap/Minute
     int PitWindowEnd; // Pit window is closed on Lap/Minute
 };
+
+struct SPageFilePhysics {
+    int packetId = 0; // Index of the shared memory's current step
+    float gas = 0; // Value of gas pedal: 0 or 1 (fully pressed)
+    float brake = 0; // Value of brake pedal: 0 or 1 (fully pressed)
+    float fuel = 0; // Liters of fuel in the car
+    int gear = 0; // Selected gear (0 is reverse, 1 is neutral, 2 is first gear)
+    int rpm = 0; // Value of rpm 
+    float steerAngle = 0; // Angle of steer
+    float speedKmh = 0; // Speed in Km/h
+    float velocity[3]; // Velocity for each axis (world related) [x,y,z]
+    float accG[3]; // G-Force for each axis (local related) [x,y,z]
+    float wheelSlip[4]; // Spin speed of each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float wheelLoad[4]; // Load on each tyre (in N) [Front Left, Front Right, Rear Left, Rear Right]
+    float wheelsPressure[4]; // Pressure of each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float wheelAngularSpeed[4]; // Angular speed of each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float tyreWear[4]; // Current wear of each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float tyreDirtyLevel[4]; // Dirt level on each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float tyreCoreTemperature[4]; // Core temperature of each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float camberRAD[4]; // Camber of each tyre in Radian [Front Left, Front Right, Rear Left, Rear Right] 
+    float suspensionTravel[4]; // Suspension travel for each tyre [Front Left, Front Right, Rear Left, Rear Right]
+    float drs = 0; // If DRS is present and enabled: 0 (false) or 1 (true)
+    float tc = 0; // Slip ratio limit for the traction level (if enabled)
+    float heading = 0; // Heading of the car on world coordinates
+    float pitch = 0; // Pitch of the car on world coordinates
+    float roll = 0; // Roll of the car on world coordinates
+    float cgHeight; // Height of Center of gravity
+    float carDamage[5]; // Level of damage for each car section (only first 4 are valid)
+    int numberOfTyreOut = 0; // How many tyres are allowed to stay out of the track or not
+    int pitLimiterOn = 0; // If pit limiter is enabled: 0 (false) or 1 (true)
+    float abs = 0; // Slip ratio limit for the ABS (if enabled)
+    float kersCharge = 0; // KERS/ERS battery charge: 0 to 1
+    float kersInput = 0; // KERS/ERS input to the engine: 0 to 1
+    int autoShifterOn = 0; // If auto shifter is enabled: 0 (false) or 1 (true)
+    float rideHeight[2]; // Right heights: front and rear
+    float turboBoost = 0; // Turbo boost
+    float ballast = 0; // Kilograms of ballast added to the car (only in multiplayer)
+    float airDensity = 0; // Air density
+    float airTemp = 0; // Air temperature
+    float roadTemp = 0; // Road temperature
+    float localAngularVel[3]; // Angular velocity of the car [x,y,z]
+    float finalFF = 0; // Current Force Feedback value;
+    float performanceMeter = 0; // Performance meter compared to the best lap
+    int engineBrake = 0; // Engine brake setting
+    int ersRecoveryLevel = 0; // ERS recovery level
+    int ersPowerLevel = 0; // ERS selected power controller
+    int ersHeatCharging = 0; // ERS charging: 0 (Motor) or 1 (Battery)
+    int ersIsCharging = 0; // If ERS battery is recharging: 0 (false) or 1 (true)
+    float kersCurrentKJ = 0; // KERS/ERS KiloJoule spent during the lap
+    int drsAvailable = 0; // If DRS is available (DRS zone): 0 (false) or 1 (true)
+    int drsEnabled = 0; // If DRS is enabled (DRS zone): 0 (false) or 1 (true)
+    float clutch = 0; // Value of the clutch pedal: 0 to 1 (fully pressed)
+    float tyreTempI[4]; // Inner temperature of each tyre [Front Right, Front Left, Rear Right, Rear Left]
+    float tyreTempM[4]; // Middle temperature of each tyre [Front Right, Front Left, Rear Right, Rear Left]
+    float tyreTempO[4]; // Outer temperature of each tyre [Front Right, Front Left, Rear Right, Rear Left]
+    int isAIControlled; // AI controlled car: 0 (human) or 1 (AI)
+    float tyreContactPoint[4][3]; // Vector for contact point of each tyre [Front Left, Front Right, Rear Right, Rear Left][x,y,z]
+    float tyreContactNormal[4][3]; // Vector for contact normal of each tyre [Front Left, Front Right, Rear Right, Rear Left][x,y,z]
+    float tyreContactHeading[4][3]; // Vector for contact heading of each tyre [Front Left, Front Right, Rear Right, Rear Left][x,y,z]
+    float brakeBias; // Brake bias from 0 (rear) to 1 (front)
+    float localVelocity[3]; // Vector for local velocity 
+};
