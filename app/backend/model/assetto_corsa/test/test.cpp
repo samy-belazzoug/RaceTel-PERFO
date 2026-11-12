@@ -15,8 +15,10 @@ int main() {
     }
     if (physics.Connect()) {
         std::wcout << "Connected to physics shared memory successfully :" << std::endl 
-        << "RPM : " << physics.physicsData->rpm << std::endl 
+        << "RPM : " << physics.physicsData->rpms << std::endl 
         << "Throttle : " << physics.physicsData->gas << std::endl 
+        << "Clutch :" << physics.physicsData->clutch << std::endl
+        << "Ai controlling : " << physics.physicsData->isAIControlled << std::endl
         << "Brake bias : " << physics.physicsData->brakeBias << std::endl;
     }
     if (statics.Disconnect() && physics.Disconnect()) {

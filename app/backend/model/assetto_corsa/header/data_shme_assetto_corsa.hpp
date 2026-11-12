@@ -53,7 +53,7 @@ struct SPageFilePhysics {
     float brake = 0; // Value of brake pedal: 0 or 1 (fully pressed)
     float fuel = 0; // Liters of fuel in the car
     int gear = 0; // Selected gear (0 is reverse, 1 is neutral, 2 is first gear)
-    int rpm = 0; // Value of rpm 
+    int rpms = 0; // Value of rpm 
     float steerAngle = 0; // Angle of steer
     float speedKmh = 0; // Speed in Km/h
     float velocity[3]; // Velocity for each axis (world related) [x,y,z]
@@ -74,7 +74,7 @@ struct SPageFilePhysics {
     float roll = 0; // Roll of the car on world coordinates
     float cgHeight; // Height of Center of gravity
     float carDamage[5]; // Level of damage for each car section (only first 4 are valid)
-    int numberOfTyreOut = 0; // How many tyres are allowed to stay out of the track or not
+    int numberOfTyresOut = 0; // How many tyres are allowed to stay out of the track or not receive a penalty
     int pitLimiterOn = 0; // If pit limiter is enabled: 0 (false) or 1 (true)
     float abs = 0; // Slip ratio limit for the ABS (if enabled)
     float kersCharge = 0; // KERS/ERS battery charge: 0 to 1
@@ -97,6 +97,7 @@ struct SPageFilePhysics {
     float kersCurrentKJ = 0; // KERS/ERS KiloJoule spent during the lap
     int drsAvailable = 0; // If DRS is available (DRS zone): 0 (false) or 1 (true)
     int drsEnabled = 0; // If DRS is enabled (DRS zone): 0 (false) or 1 (true)
+    float brakeTemp[4]; // Brake temp for each tire [Front Left, Front Right, Rear Left, Rear Right]
     float clutch = 0; // Value of the clutch pedal: 0 to 1 (fully pressed)
     float tyreTempI[4]; // Inner temperature of each tyre [Front Right, Front Left, Rear Right, Rear Left]
     float tyreTempM[4]; // Middle temperature of each tyre [Front Right, Front Left, Rear Right, Rear Left]
