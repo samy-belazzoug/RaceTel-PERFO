@@ -18,11 +18,32 @@ public:
     // Destructor of the class
     ~ACSharedMemoryStatic();
     
-    // Connect to Assetto Corsa Static Shared Memory file
+    // Connect to Assetto Corsa physics Shared Memory file
     // Returns true if succeeded and false if not
     bool Connect();
     
-    // Disconnect properly from Assetto Corsa static shared memory file
+    // Disconnect properly from Assetto Corsa physics shared memory file
+    // Returns true if succeeded and false if not
+    bool Disconnect();
+};
+
+// Allow to get data from Assetto Corsa physics shared memory file
+class ACSharedMemoryPhysics {
+private:
+    HANDLE hMapFile;
+    LPCTSTR pBuf;
+public:
+    // Static data of the current session
+    struct SPageFilePhysics *physicsData;
+    
+    // Destructor of the class
+    ~ACSharedMemoryPhysics();
+    
+    // Connect to Assetto Corsa physics Shared Memory file
+    // Returns true if succeeded and false if not
+    bool Connect();
+    
+    // Disconnect properly from Assetto Corsa physics shared memory file
     // Returns true if succeeded and false if not
     bool Disconnect();
 };
