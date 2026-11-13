@@ -1,6 +1,37 @@
 // Data shared memory assetto corsa
 // This file is the representation of Assetto Corsa's data in C++ language
 
+// Status of the instance
+enum AC_STATUS {
+    AC_OFF = 0,
+    AC_REPLAY = 1,
+    AC_LIVE = 2,
+    AC_PAUSE = 3,
+};
+
+// Session type
+enum AC_SESSION_TYPE {
+    AC_UNKNOWN = -1,
+    AC_PRACTICE = 0,
+    AC_QUALIFY = 1,
+    AC_RACE = 2,
+    AC_HOTLAP = 3,
+    AC_TIME_ATTACK = 4,
+    AC_DRIFT = 5,
+    AC_DRAG = 6
+};
+
+// Type of flag being shown
+enum AC_FLAG_TYPE {
+    AC_NO_FLAG = 0,
+    AC_BLUE_FLAG = 1,
+    AC_YELLOW_FLAG = 2,
+    AC_BLACK_FLAG = 3,
+    AC_WHITE_FLAG = 4,
+    AC_CHECKERED_FLAG = 5,
+    AC_PENALTY_FLAG = 6
+};
+
 // The following members are initialized when the instance starts and never changes until the instance is closed
 struct SPageFileStatic {
     wchar_t smVersion[15]; // Version of the Shared Memory structure
@@ -47,6 +78,7 @@ struct SPageFileStatic {
     int PitWindowEnd; // Pit window is closed on Lap/Minute
 };
 
+// The following members change at each graphic step. They all refer to the player’s car.
 struct SPageFilePhysics {
     int packetId = 0; // Index of the shared memory's current step
     float gas = 0; // Value of gas pedal: 0 or 1 (fully pressed)
@@ -108,4 +140,38 @@ struct SPageFilePhysics {
     float tyreContactHeading[4][3]; // Vector for contact heading of each tyre [Front Left, Front Right, Rear Right, Rear Left][x,y,z]
     float brakeBias; // Brake bias from 0 (rear) to 1 (front)
     float localVelocity[3]; // Vector for local velocity 
+};
+
+// The following members change at each graphic step. They all refer to the player’s car.
+struct SPageFileGraphics {
+    int packedId = 0; // Index of the shared memory's current step
+    AC_STATUS status = AC_OFF; // Status of the instance
+    AC_SESSION_TYPE session = AC_PRACTICE; // Session type
+    wchar_t currentTime[15]; // Current lap time
+    wchar_t lastTime[15]; // Last lap time
+    wchar_t bestTime[15]; // Best lap time
+    wchar_t split[15]; // Time in sector
+    int completedLaps = 0; // Number of completed laps by the player
+    int position = 0; // Current player position (standings)
+    int iCurrentTime = 0; // Current lap time
+    int iLastTime = 0; // Last lap time
+    int iBestTime = 0; // Best lap time
+    float sessionTimeLeft = 0; // Time left until session is closed
+    float distanceTraveled = 0; // Distance traveled during the instance
+    int isInPit = 0; // If player's car is stopped in the pit: 0 (false) or 1 (true)
+    int currentSectorIndex = 0; // Current sector index
+    int lastSectorTime = 0; // Last sector time
+    int numberOfLaps = 0; // Number of laps needed to close the session
+    wchar_t tyreCompound[33]; // Current tyre compound
+    float replayTimeMultiplier = 0; // Replay multiplier
+    float normalizedCarPosition = 0; // Car position on the track's spline
+    float carCoordinates[3]; // Car position on world coordinates [x,y,z]
+    float penaltyTime = 0; // Time of penalty
+    AC_FLAG_TYPE flag = AC_NO_FLAG; // Type of flag being shown
+    int idealLineOn = 0; // If ideal line is enabled: 0 (false) or 1 (true)
+    int isInPitlane = 0; // If player's car is in the pitlane: 0 (false) or 1 (true)
+    float surfaceGrip = 0; // Current grip of the track's surface
+    int mandatoryPitDone = 0; // Set to 1 if the player has done the mandatory pit
+    float windSpeed = 0; // Speed of the wind on the current session
+    float windDirection = 0; // Direction of the wind (0-359) on the current session
 };
