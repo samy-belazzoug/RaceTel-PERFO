@@ -7,6 +7,8 @@
 int main() {
     ACSharedMemoryStatic statics;
     ACSharedMemoryPhysics physics;
+    ACSharedMemoryGraphics graphics;
+    
     if (statics.Connect()) {
         std::wcout << "Connected to static shared memory successfully :" << std::endl 
         << "AC version : " << statics.staticData->acVersion << std::endl 
@@ -21,8 +23,18 @@ int main() {
         << "Ai controlling : " << physics.physicsData->isAIControlled << std::endl
         << "Brake bias : " << physics.physicsData->brakeBias << std::endl;
     }
-    if (statics.Disconnect() && physics.Disconnect()) {
-        std::cout << "Disconnected successfully from shared memory files" << std::endl;
+    if (graphics.Connect()) {
+        std::wcout << "Connected to graphics shared memory successfully :" << std::endl 
+        << "Status : " << graphics.graphicsData->status << std::endl 
+        << "Session : " << graphics.graphicsData->session << std::endl
+        << "Current time : " << graphics.graphicsData->currentTime << std::endl 
+        << "Normalized car position :" << graphics.graphicsData->normalizedCarPosition << std::endl
+        << "In pitlane : " << graphics.graphicsData->isInPitlane << std::endl
+        << "Flag : " << graphics.graphicsData->flag << std::endl;
+    }
+    
+    if (statics.Disconnect() && physics.Disconnect() && graphics.Disconnect()) {
+        std::cout << "Successfully disconnected from shared memory files" << std::endl;
     }
     return 1;
 }
